@@ -1,2 +1,5 @@
-/home/koem/gits/BattleSheeps-sandbox/springBootDemo/src/main/java/hello/Application.java
-/home/koem/gits/BattleSheeps-sandbox/springBootDemo/src/main/java/hello/ServerController.java
+/home/koem/gits/BattleSheeps-sandbox/server/src/main/java/hello/Application.java
+/home/koem/gits/BattleSheeps-sandbox/server/src/main/java/hello/TooManyPlayersException.java
+/home/koem/gits/BattleSheeps-sandbox/server/src/main/java/hello/Player.java
+/home/koem/gits/BattleSheeps-sandbox/server/src/main/java/hello/Players.java
+/home/koem/gits/BattleSheeps-sandbox/server/src/main/java/hello/ServerController.java

@@ -1,2 +1,5 @@
+hello/Player.class
 hello/Application.class
+hello/Players.class
 hello/ServerController.class
+hello/TooManyPlayersException.class

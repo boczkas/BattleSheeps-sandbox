@@ -1,4 +1,5 @@
-/home/koem/gits/BattleSheeps-sandbox/springServer/src/main/java/hello/Application.java
-/home/koem/gits/BattleSheeps-sandbox/springServer/src/main/java/hello/Greeting.java
-/home/koem/gits/BattleSheeps-sandbox/springServer/src/main/java/hello/Lista.java
-/home/koem/gits/BattleSheeps-sandbox/springServer/src/main/java/hello/GreetingController.java
+/home/koem/gits/BattleSheeps-sandbox/client/src/main/java/hello/Greeting.java
+/home/koem/gits/BattleSheeps-sandbox/client/src/main/java/hello/BackendDTO.java
+/home/koem/gits/BattleSheeps-sandbox/client/src/main/java/hello/Application.java
+/home/koem/gits/BattleSheeps-sandbox/client/src/main/java/hello/Lista.java
+/home/koem/gits/BattleSheeps-sandbox/client/src/main/java/hello/GreetingController.java

@@ -1,4 +1,5 @@
 hello/Greeting.class
 hello/Lista.class
+hello/BackendDTO.class
 hello/Application.class
 hello/GreetingController.class
