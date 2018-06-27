@@ -18,8 +18,8 @@ public class RabbitClient {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setUsername("guest");
     factory.setPassword("guest");
-    factory.setHost("localhost");
-    factory.setPort(5672);
+    factory.setHost("rabbitmqssl.jarekslaby.pl");
+//    factory.setPort(5672);
 
     connection = factory.newConnection();
     channel = connection.createChannel();
