@@ -1,58 +1,56 @@
 package hello;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.GetResponse;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
-@Controller
 public class ServerController {
 
-    private static int num = 0;
+    private Channel channel;
+    private Connection connection;
     private Players players = new Players();
+    private String queueName = "players";
 
-    @RequestMapping(value = "/",
-            method = RequestMethod.POST,
-            produces = "text/plain")
-    public ResponseEntity<String> greetingForm(HttpServletRequest request) {
-        String response;
+    ServerController() throws IOException, TimeoutException {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setUsername("admin");
+        factory.setPassword("admin");
+        factory.setHost("10.30.1.140");
 
-        num++;
+        connection = factory.newConnection();
+        channel = connection.createChannel();
 
-        if (num % 2 == 0) {
-            response = "even";
-        } else {
-            response = "odd";
-        }
-
-        final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-
-        return new ResponseEntity<>("{\"msg\": \"" + response + "\"}", httpHeaders, HttpStatus.OK);
-
+        channel.queueDeclare(queueName, false, false,  false, null);
     }
 
-    @RequestMapping(value = "/register",
-            method = RequestMethod.POST,
-            produces = "text/plain")
-    public @ResponseBody
-    Player registerPlayer(@RequestBody Player player) {
-        System.out.println(player.toString());
+    void run() throws IOException, TimeoutException {
+        GetResponse response;
+        while (!players.arePresent()) {
+            response = channel.basicGet(queueName, true);
+            if (response != null) {
+                registerPlayer(new Player(new String(response.getBody(), "UTF-8"), "127.0.0.1"));
+//                System.out.println(new String(response.getBody(), "UTF-8"));
+            }
+        }
+        closeConnection();
+    }
+
+    private void closeConnection() throws IOException, TimeoutException {
+        channel.close();
+        connection.close();
+    }
+
+    private void registerPlayer(Player player) {
+//        System.out.println(player.toString());
         try {
             players.addPlayer(player);
         } catch (TooManyPlayersException e) {
             e.printStackTrace();
         }
-
         players.printPlayers();
-
-        return player;
     }
 }

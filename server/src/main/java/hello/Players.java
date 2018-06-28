@@ -20,6 +20,10 @@ public class Players {
         throw new TooManyPlayersException();
     }
 
+    public boolean arePresent() {
+        return firstPlayer != null && secondPlayer != null;
+    }
+
     public Player getFirstPlayer() {
         return firstPlayer;
     }
@@ -37,7 +41,7 @@ public class Players {
     }
 
     public void printPlayers() {
-
+        System.out.println("[Players]:");
         if (firstPlayer != null)
             System.out.println(firstPlayer.toString());
         if (secondPlayer != null)
